@@ -13,7 +13,7 @@ client = MongoClient('localhost', 27017)
 db = client.test
 
 @app.route('/index', method=['POST'])
-def get_image();
+def get_image():
     # get image for processing
     data = request.json
 
@@ -22,3 +22,4 @@ def get_image();
 
 if __name__ == '__main__':
     app.run()
+
