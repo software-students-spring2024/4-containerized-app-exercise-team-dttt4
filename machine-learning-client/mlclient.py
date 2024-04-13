@@ -42,8 +42,7 @@ def text_to_audio(text, output_path):
         output_path (str): The path to the area on local machine where audio file should go
 
     Returns:
-
-        None: Prints string if file is uploaded succesfully. 
+        None: Prints string if file is uploaded succesfully.
     """
     try:
         with open(output_path, "wb") as audio_file:
