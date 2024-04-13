@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Text App</title>
+    <style>
+
+        h1 {
+            text-align: center;
+        }
+        
+        #parent_container {
+            border: 1px solid black; 
+            width: 500px;
+            height: 500px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #text_box {
+            border: 1px solid black; 
+            width: 500px;
+            height: 300px;
+            display: block;
+            margin: 0 auto;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <h1>Image to Text App</h1>
+
+    <!-- area to display loaded image -->
+    <div id="parent_container">
+
+    </div>
+
+    <!-- button to choose an image -->
+    <form action="/action_page.php">
+        <label for="myfile">Select a file:</label>
+        <input type="file" id="myfile" name="myfile"><br><br>
+        <input type="submit">   <!-- when submit is pressed, code should send the image for processing in the backend -->
+      </form>
+
+    <!-- area to display text -->
+    <div id="text_box">
+        <!-- functionality for adddig text to the text box -->
+
+    </div>
+
+
+    
+
+    
+</body>
+</html>
