@@ -15,6 +15,7 @@ authenticator = IAMAuthenticator(API_KEY)
 text_to_speech = TextToSpeechV1(authenticator=authenticator)
 text_to_speech.set_service_url(SERVICE_URL)
 
+
 def text_from_image(image_path):
     """Extract text from the specified image file.
 
@@ -31,6 +32,7 @@ def text_from_image(image_path):
     except IOError as e:
         print(f"An error occurred while opening the image: {e}")
         return None
+
 
 def text_to_audio(text, output_path):
     """Extract audio from text.
@@ -54,6 +56,7 @@ def text_to_audio(text, output_path):
         print(f"Audio file created at {output_path}")
     except IOError as e:
         print(f"Failed to convert text to speech: {e}")
+
 
 def main():
     """Process an image to extract text and convert it to audio."""
