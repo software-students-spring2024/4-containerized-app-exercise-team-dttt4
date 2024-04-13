@@ -9,8 +9,8 @@ import pytesseract
 
 load_dotenv()
 
-API_KEY = os.getenv('IBM_API_KEY')
-SERVICE_URL = os.getenv('IBM_SERVICE_URL')
+API_KEY = os.getenv("IBM_API_KEY")
+SERVICE_URL = os.getenv("IBM_SERVICE_URL")
 authenticator = IAMAuthenticator(API_KEY)
 text_to_speech = TextToSpeechV1(authenticator=authenticator)
 text_to_speech.set_service_url(SERVICE_URL)
@@ -45,12 +45,12 @@ def text_to_audio(text, output_path):
         None: Prints string if file is uploaded succesfully. 
     """
     try:
-        with open(output_path, 'wb') as audio_file:
+        with open(output_path, "wb") as audio_file:
             audio_file.write(
                 text_to_speech.synthesize(
                     text,
-                    voice='en-US_AllisonV3Voice',
-                    accept='audio/wav'
+                    voice="en-US_AllisonV3Voice",
+                    accept="audio/wav"
                 ).get_result().content
             )
         print(f"Audio file created at {output_path}")
@@ -60,8 +60,8 @@ def text_to_audio(text, output_path):
 
 def main():
     """Process an image to extract text and convert it to audio."""
-    image_path='images/test.jpg'
-    output_audio_path='output_audio.wav'
+    image_path="images/test.jpg"
+    output_audio_path="output_audio.wav"
 
     text = text_from_image(image_path)
     if text:
