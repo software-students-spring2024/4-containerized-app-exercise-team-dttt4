@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <title>Image to Text App</title>
     <style>
 
@@ -18,13 +19,14 @@
             margin: 0 auto;
         }
 
-        #text_box {
+        #text_box, #display_box {
             border: 1px solid black; 
             width: 500px;
             height: 300px;
             display: block;
             margin: 0 auto;
         }
+
 
 
 
@@ -39,21 +41,29 @@
     </div>
 
     <!-- button to choose an image -->
-    <form action="/action_page.php">
+    <form action="/" method="post">
         <label for="myfile">Select a file:</label>
         <input type="file" id="myfile" name="myfile"><br><br>
-        <input type="submit">   <!-- when submit is pressed, code shouldupload code to mongoDB -->
-      </form>
+        <input type="submit">   <!-- when submit is pressed, code should upload to mongoDB -->
+    </form>
 
-    <!-- area to display text -->
-    <div id="text_box">
-        <!-- functionality for adddig text to the text box -->
+
+
+    <!-- area to show ML data being processed -->
+    <div id="display_box">
 
     </div>
 
 
-    
+    <!-- area to display text -->
+    <div id="text_box">
+        <!-- functionality for addding text to the text box -->
+
+    </div>
 
     
 </body>
 </html>
+
+
+
