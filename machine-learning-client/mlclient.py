@@ -1,4 +1,5 @@
 """This module provides functions to convert text from images to audio using IBM Watson."""
+
 import os
 from dotenv import load_dotenv
 from ibm_watson import TextToSpeechV1
