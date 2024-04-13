@@ -29,8 +29,10 @@ def text_from_image(image_path):
         return text
     except IOError as e:
         print(f"An error occurred while opening the image: {e}")
-    except Exception as e: 
+        return None
+    except Exception as e:
         print(f"An error occurred while processing the image: {e}")
+        return None
 
 def text_to_audio(text, output_path):
     """Extract audio from text.
