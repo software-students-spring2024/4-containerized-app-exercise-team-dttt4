@@ -6,8 +6,16 @@ name = "pypi"
 [packages]
 pylint = "*"
 black = "*"
+pymongo = "*"
+ibm-watson = "*"
+Pillow = "*"
+pydub = "*"
+pytesseract = "*"
+python-dotenv = "*"  # Added to ensure that environment variables can be loaded
 
 [dev-packages]
 
 [requires]
 python_version = "3.10"
+
+
