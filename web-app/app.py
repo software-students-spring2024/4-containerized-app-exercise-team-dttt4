@@ -50,12 +50,14 @@ def process_image():
 
                 image_document = {
                     "image_data": binary.Binary(image_bytes),
-                    "image_name": file.filename
+                    "image_name": file.filename,
                 }
 
                 collection.insert_one(image_document)
                 flash("Image successfully uploaded and added to MongoDB", "success")
-            except IOError as e:  # Example: change Exception to a more specific exception type
+            except (
+                IOError
+            ) as e: # Example: change Exception to a more specific exception type
                 logging.error("An error occurred while processing the image: %s", e)
                 flash(f"Error processing the image: {e}", "error")
 
