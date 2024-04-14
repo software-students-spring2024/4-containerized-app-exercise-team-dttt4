@@ -16,15 +16,20 @@ client = MongoClient("MONGO_URI")
 db = client["imagedb"]
 collection = db["imageCollection"]
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def process_image():
-    if request.method == 'POST':
+    """
+     Handles the image upload via POST request and saves it to MongoDB.
+     Flashes messages based on the success or failure of the operation.
+     """
+     
+    if request.method == "POST":
         print(request.files)
-        if 'file' not in request.files:
-            return 'No file part'
-        file = request.files['file']
-        if file.filename == '':
-            return 'No selected file'
+        if "file" not in request.files:
+            return "No file part"
+        file = request.files["file"]
+        if file.filename == "":
+            return "No selected file"
         if file:
             image = Image.open(file.stream)
             image_byte_array = io.BytesIO()
@@ -32,13 +37,14 @@ def process_image():
             image_bytes = image_byte_array.getvalue()
             # Store image in MongoDB
             image_document = {
-                'image_data': binary.Binary(image_bytes),
-                'image_name': file.filename
+                "image_data": binary.Binary(image_bytes),
+                "image_name": file.filename
             }
             print(client)
             #collection.insert_one(image_document) #ERROR!!!!!!
-            return 'Image successfully uploaded and added to MongoDB'
+            return "Image successfully uploaded and added to MongoDB"
     return render_template("process_image.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
