@@ -57,7 +57,7 @@ def process_image():
                 flash("Image successfully uploaded and added to MongoDB", "success")
             except (
                 IOError
-            ) as e: # Example: change Exception to a more specific exception type
+            ) as e:  # Example: change Exception to a more specific exception type
                 logging.error("An error occurred while processing the image: %s", e)
                 flash(f"Error processing the image: {e}", "error")
 
