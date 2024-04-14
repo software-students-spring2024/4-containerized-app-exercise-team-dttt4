@@ -6,8 +6,8 @@ import logging
 from os import getenv
 from flask import Flask, request, render_template, flash, redirect, url_for
 from pymongo import MongoClient
-from PIL import Image 
-from bson import binary 
+from PIL import Image
+from bson import binary
 from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO)
@@ -34,24 +34,24 @@ def process_image():
         if 'file' not in request.files:
             flash('No file part', 'error')
             return redirect(url_for('process_image'))
-        
+
         file = request.files['file']
         if file.filename == '':
             flash('No selected file', 'error')
             return redirect(url_for('process_image'))
-        
+
         if file:
             try:
                 image = Image.open(file.stream)
                 image_byte_array = io.BytesIO()
                 image.save(image_byte_array, format=image.format)
                 image_bytes = image_byte_array.getvalue()
-                
+
                 image_document = {
                     'image_data': binary.Binary(image_bytes),
                     'image_name': file.filename
                 }
-                
+
                 collection.insert_one(image_document)
                 flash('Image successfully uploaded and added to MongoDB', 'success')
             except IOError as e:  # Example: change Exception to a more specific exception type
