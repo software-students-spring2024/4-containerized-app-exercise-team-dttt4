@@ -23,23 +23,23 @@ db = client["imagedb"]
 collection = db["imageCollection"]
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def process_image():
     """
     Handles the image upload via POST request and saves it to MongoDB.
     Flashes messages based on the success or failure of the operation.
     """
 
-    if request.method == 'POST':
+    if request.method == "POST":
         logging.info("Received POST request with files: %s", request.files)
-        if 'file' not in request.files:
-            flash('No file part', 'error')
-            return redirect(url_for('process_image'))
+        if "file" not in request.files:
+            flash("No file part", "error")
+            return redirect(url_for("process_image"))
 
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file', 'error')
-            return redirect(url_for('process_image'))
+        file = request.files["file"]
+        if file.filename == "":
+            flash("No selected file", "error")
+            return redirect(url_for("process_image"))
 
         if file:
             try:
@@ -49,18 +49,18 @@ def process_image():
                 image_bytes = image_byte_array.getvalue()
 
                 image_document = {
-                    'image_data': binary.Binary(image_bytes),
-                    'image_name': file.filename
+                    "image_data": binary.Binary(image_bytes),
+                    "image_name": file.filename
                 }
 
                 collection.insert_one(image_document)
-                flash('Image successfully uploaded and added to MongoDB', 'success')
+                flash("Image successfully uploaded and added to MongoDB", "success")
             except IOError as e:  # Example: change Exception to a more specific exception type
                 logging.error("An error occurred while processing the image: %s", e)
-                flash(f'Error processing the image: {e}', 'error')
+                flash(f"Error processing the image: {e}", "error")
 
     return render_template("process_image.html")
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host="0.0.0.0", debug=True)
