@@ -1,6 +1,7 @@
 """
 This module contains a Flask web application that processes images.
 """
+
 import io
 import logging
 from os import getenv
@@ -29,6 +30,7 @@ def process_image():
     Handles the image upload via POST request and saves it to MongoDB.
     Flashes messages based on the success or failure of the operation.
     """
+    
     if request.method == 'POST':
         logging.info("Received POST request with files: %s", request.files)
         if 'file' not in request.files:
