@@ -53,6 +53,14 @@
             "markers": "python_version >= '3.8'",
             "version": "==24.4.0"
         },
+        "default": {
+            "bson": {
+                "hashes": [
+                    "sha256:d6511b2ab051139a9123c184de1a04227262173ad593429d21e443d6462d6590"
+                ],
+                "index": "pypi",
+                "version": "==0.5.10"
+            },
         "certifi": {
             "hashes": [
                 "sha256:0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f",
