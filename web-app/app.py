@@ -4,7 +4,7 @@ This module contains a Flask web application that processes images.
 import io
 import logging
 from os import getenv
-from flask import Flask, request, render_template, abort, flash, redirect, url_for
+from flask import Flask, request, render_template, flash, redirect, url_for
 from pymongo import MongoClient
 from PIL import Image 
 from bson import binary 
@@ -25,6 +25,10 @@ app.secret_key = 'your_super_secret_key_here'
 
 @app.route("/", methods=['GET', 'POST'])
 def process_image():
+    """
+    Handles the image upload via POST request and saves it to MongoDB.
+    Flashes messages based on the success or failure of the operation.
+    """
     if request.method == 'POST':
         logging.info("Received POST request with files: %s", request.files)
         if 'file' not in request.files:
@@ -50,8 +54,8 @@ def process_image():
                 
                 collection.insert_one(image_document)
                 flash('Image successfully uploaded and added to MongoDB', 'success')
-            except Exception as e:
-                logging.error("An error occurred: %s", e)
+            except IOError as e:  # Example: change Exception to a more specific exception type
+                logging.error("An error occurred while processing the image: %s", e)
                 flash(f'Error processing the image: {e}', 'error')
 
     return render_template("process_image.html")
