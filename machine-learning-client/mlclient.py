@@ -6,7 +6,10 @@ from ibm_watson import TextToSpeechV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from PIL import Image
 import pytesseract
+from flask import Flask, request, jsonify, send_file
 
+
+app = Flask(__name__)
 load_dotenv()
 
 API_KEY = os.getenv("IBM_API_KEY")
@@ -16,7 +19,27 @@ text_to_speech = TextToSpeechV1(authenticator=authenticator)
 text_to_speech.set_service_url(SERVICE_URL)
 
 
-def text_from_image(image_path):
+@app.route("/process", methods=["POST"])
+def process():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "No file selected"}), 400
+
+    try:
+        text = image_to_text(file)
+        if text:
+            audio_path = text_to_audio(text)
+            return send_file(audio_path, as_attachment=True)
+        else:
+            return jsonify({"error": "No text could be extracted from the image."}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
+def image_to_text(image_path):
     """Extract text from the specified image file.
 
     Args:
@@ -45,6 +68,7 @@ def text_to_audio(text, output_path):
         None: Prints string if file is uploaded succesfully.
     """
     try:
+        output_path = 'output_audio.wav'
         with open(output_path, "wb") as audio_file:
             audio_file.write(
                 text_to_speech.synthesize(
@@ -53,7 +77,7 @@ def text_to_audio(text, output_path):
                 .get_result()
                 .content
             )
-        print(f"Audio file created at {output_path}")
+        return output_path
     except IOError as e:
         print(f"Failed to convert text to speech: {e}")
 
@@ -63,7 +87,7 @@ def main():
     image_path = "images/test.jpg"
     output_audio_path = "output_audio.wav"
 
-    text = text_from_image(image_path)
+    text = image_to_text(image_path)
     if text:
         print("Extracted Text:", text)
         text_to_audio(text, output_audio_path)
@@ -72,4 +96,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True, host="0.0.0.0", port=5001)

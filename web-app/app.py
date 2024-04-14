@@ -5,7 +5,8 @@ This module contains a Flask web application that processes images.
 import io
 import logging
 from os import getenv
-from flask import Flask, request, render_template, flash, redirect, url_for
+import requests
+from flask import Flask, request, render_template, flash, redirect, url_for, send_file
 from pymongo import MongoClient
 from PIL import Image
 from bson import binary
@@ -16,6 +17,7 @@ logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = getenv("SECRET_KEY")
 
 mongo_uri = getenv("MONGO_URI")
 client = MongoClient(mongo_uri)
@@ -51,13 +53,27 @@ def process_image():
                 image_document = {
                     "image_data": binary.Binary(image_bytes),
                     "image_name": file.filename,
+                    "is_processed": False,
                 }
 
                 collection.insert_one(image_document)
                 flash("Image successfully uploaded and added to MongoDB", "success")
+                response = requests.post("http://mlclient:5001/process", files={'file': ('image.jpg', io.BytesIO(image_bytes), 'image/jpeg')})
+                if response.status_code == 200:
+                    flash("Audio file processed successfully", "success")
+                    audio_file_stream = io.BytesIO(response.content)
+                    audio_file_stream.seek(0)  # Ensure the cursor is at the start of the stream
+                    return send_file(
+                        audio_file_stream,
+                        mimetype="audio/wav",
+                        as_attachment=True,
+                        attachment_filename="output.wav"
+                    )
+                else:
+                    flash("Failed to process image for audio", "error")
             except (
                 IOError
-            ) as e:  # Example: change Exception to a more specific exception type
+            ) as e:  
                 logging.error("An error occurred while processing the image: %s", e)
                 flash(f"Error processing the image: {e}", "error")
 

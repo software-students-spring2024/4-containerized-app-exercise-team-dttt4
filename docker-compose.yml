@@ -6,11 +6,12 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - mlclient
 
   mlclient:
     build: ./machine-learning-client
     ports:
-      - "80:80"
+      - "5001:5001"
     depends_on:
       - db
 
