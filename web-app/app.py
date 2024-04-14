@@ -1,3 +1,6 @@
+"""
+This module contains a Flask web application that processes images.
+"""
 from flask import Flask, render_template
 from pymongo import MongoClient
 
@@ -11,6 +14,9 @@ collection = db['images']
 
 @app.route('/', methods=['GET', 'POST'])
 def process_image():
+    """
+    Open the landing page for image uploading
+    """
     return render_template('process_image.html')
 
 
