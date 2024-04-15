@@ -38,11 +38,11 @@ MongoDB is used to store image collections. The collection include name and data
 ## Project Instructions
 
 ### System Requirements
-- Python 3.10 or higer
+- Python 3.9 or higer
 
 ### Install Dependencies
-Ensure Flask, pytesseract, Pillow, python-dotenv, pymongo are installed.
-if not:
+Ensure Flask, pytesseract, Pillow, python-dotenv, pymongo are installed. They should be automatically installed. \
+If not:
 ```
 pip install Flask pytesseract Pillow python-dotenv pymongo
 ```
