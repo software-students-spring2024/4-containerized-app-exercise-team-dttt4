@@ -35,7 +35,7 @@ def process():
         if text:
             collection.update_one(
                 {"_id": image_document["_id"]},
-                {"$set": {"text": text,"is_processed": True}}
+                {"$set": {"text": text,"is_processed": True}},
             )
             return jsonify({"message": "Image processed and text saved."}), 200
 
