@@ -18,16 +18,15 @@ Kim Young: https://github.com/Kyoung655
 ## Project Description
 This project is a photo transcription web app 
 which reads from user provided photos and 
-transcribes them into text and speech.
+transcribes them into text.
 
 ## Project Layout
 This project consists of three parts. Each part operates
 in its own docker container.
 
 ### Machine Learning Client
-The machine learning client uses Pillow to transcribe text 
-from image, and IBM Watson speech libraries to 
-read the text and output audio. 
+The machine learning client uses Pillow and pytesseract to transcribe text 
+from image. 
 
 ### Web App
 The web app uses flask and HTML to allow visitors make
@@ -42,10 +41,10 @@ MongoDB is used to store image collections. The collection include name and data
 - Python 3.10 or higer
 
 ### Install Dependencies
-Ensure Flask, pytesseract, Pillow, ibm-watson, python-dotenv, pymongo are installed.
+Ensure Flask, pytesseract, Pillow, python-dotenv, pymongo are installed.
 if not:
 ```
-pip install Flask pytesseract Pillow ibm-watson python-dotenv pymongo
+pip install Flask pytesseract Pillow python-dotenv pymongo
 ```
 
 ### Run the Application
