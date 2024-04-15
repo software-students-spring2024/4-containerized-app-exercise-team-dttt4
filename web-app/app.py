@@ -31,7 +31,7 @@ def upload_image():
         if file and file.filename:
             try:
                 image_byte_array = io.BytesIO()
-                file.save(image_byte_array)  
+                file.save(image_byte_array)
                 image_bytes = image_byte_array.getvalue()
 
                 image_document = {
@@ -40,9 +40,9 @@ def upload_image():
                     "is_processed": False
                 }
 
-                result = collection.insert_one(image_document)
+                collection.insert_one(image_document)
                 flash("Image successfully uploaded. Processing will begin shortly.", "success")
-            except Exception as e:
+            except requests.exceptions.RequestException as e:
                 flash(f"Error uploading the image: {e}", "error")
         else:
             flash("No file selected or file is invalid.", "error")
@@ -58,8 +58,7 @@ def list_text():
 def trigger_process():
     """Trigger the image processing service."""
     try:
-        mlclient_url = "http://mlclient:5001/process"
-        response = requests.post(mlclient_url)
+        response = requests.post("http://mlclient:5001/process", timeout=10)
         if response.status_code == 200:
             flash("Processing triggered successfully.", "success")
         else:
