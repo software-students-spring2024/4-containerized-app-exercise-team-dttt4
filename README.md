@@ -17,7 +17,7 @@ Kim Young: https://github.com/Kyoung655
 ## Project Description
 This project is a photo transcription web app 
 which reads from user provided photos and 
-transcribes them into text and speech.
+transcribes them into text.
 
 ## Project Layout
 This project consists of three parts. Each part operates
@@ -48,8 +48,8 @@ pip install Flask pytesseract Pillow ibm-watson python-dotenv pymongo
 ```
 
 ### Run the Application
-1. Navigate to web-app directory and run the flask application.
+1. At the root directory type the command.
 ```
-flask run
+docker-compose up --build
 ```
 2. Choose the file to upload
