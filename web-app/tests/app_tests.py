@@ -4,11 +4,11 @@ This file contains tests for app.py
 
 import io
 
-def test_process_image_get(client):
+def test_process_image_get(test_client):
     """
     Tests if root url gives successful response 
     """
-    response = client.get('/')
+    response = test_client.get('/')
     assert response.status_code == 200
     assert b'process_image.html' in response.data
 
@@ -17,8 +17,8 @@ def client():
     Sets up test up test client for flask 
     """
     app.config['TESTING'] = True
-    with app.test_client() as client:
-        yield client
+    with app.test_client() as test_client:
+        yield test_client
 
 def test_process_image_post_no_file(mock_files, client):
     """
@@ -47,7 +47,6 @@ def test_process_image_post_successful(mock_files, mock_image_open, client):
     mock_file = mock_files.get.return_value
     mock_file.filename = 'test.jpg'
     mock_image = mock_image_open.return_value
-    mock_image_byte_array = io.BytesIO()
     mock_image.save.return_value = None
     mock_image.format = 'JPEG'
     response = client.post('/')
@@ -61,7 +60,6 @@ def test_process_image_post_mongodb_error(mock_files, mock_image_open, mock_inse
     mock_file = mock_files.get.return_value
     mock_file.filename = 'test.jpg'
     mock_image = mock_image_open.return_value
-    mock_image_byte_array = io.BytesIO()
     mock_image.save.return_value = None
     mock_image.format = 'JPEG'
     mock_insert_one.side_effect = Exception('MongoDB error')
