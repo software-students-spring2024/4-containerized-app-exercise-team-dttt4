@@ -23,6 +23,7 @@ db = client["imagedb"]
 collection = db["imageCollection"]
 fs = GridFS(db)
 
+
 @app.route("/", methods=["GET", "POST"])
 def upload_image():
     """Handle image upload requests from users."""
@@ -37,24 +38,31 @@ def upload_image():
                 image_document = {
                     "image_data": binary.Binary(image_bytes),
                     "image_name": file.filename,
-                    "is_processed": False
+                    "is_processed": False,
                 }
 
                 collection.insert_one(image_document)
-                flash("Image successfully uploaded. Processing will begin shortly.", "success")
+                flash(
+                    "Image successfully uploaded. Processing will begin shortly.", 
+                    "success",
+                )
             except requests.exceptions.RequestException as e:
                 flash(f"Error uploading the image: {e}", "error")
         else:
             flash("No file selected or file is invalid.", "error")
     return render_template("upload_image.html")
 
+
 @app.route("/list_text")
 def list_text():
     """Display list of processed images with their extracted text."""
-    text_documents = collection.find({"is_processed": True}, {"text": 1, "image_name": 1})
+    text_documents = collection.find(
+        {"is_processed": True}, {"text": 1, "image_name": 1}
+    )
     return render_template("list_text.html", text_documents=text_documents)
 
-@app.route('/trigger_process', methods=['POST'])
+
+@app.route("/trigger_process", methods=["POST"])
 def trigger_process():
     """Trigger the image processing service."""
     try:
@@ -65,7 +73,7 @@ def trigger_process():
             flash(f"Failed to trigger processing: {response.text}", "error")
     except requests.exceptions.RequestException as e:
         flash(f"Error triggering processing: {e}", "error")
-    return redirect(url_for('upload_image'))
+    return redirect(url_for("upload_image"))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=8080)
