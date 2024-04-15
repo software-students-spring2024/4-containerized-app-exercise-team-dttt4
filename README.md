@@ -35,4 +35,21 @@ The web app uses flask and HTML to allow visitors make
 ### Database
 MongoDB is used to store image collections. The collection include name and data. 
 
-## P
+## Project Instructions
+
+### System Requirements
+- Python 3.10 or higer
+
+### Install Dependencies
+Ensure Flask, pytesseract, Pillow, ibm-watson, python-dotenv, pymongo are installed.
+if not:
+```
+pip install Flask pytesseract Pillow ibm-watson python-dotenv pymongo
+```
+
+### Run the Application
+1. Navigate to web-app directory and run the flask application.
+```
+flask run
+```
+2. Choose the file to upload

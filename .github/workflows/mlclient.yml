@@ -40,17 +40,7 @@ jobs:
     #     docker run --name ml-client ml-client
     #     docker cp ml-client:/app/output_audio.wav .
     #     docker rm ml-client
-
-    # Web App
-    - name: Build Web App Docker image
-      run: |
-        docker build -t webapp ./web-app
-
-    # Assuming you want to start the web app container as part of the test
-    - name: Run Web App Docker container
-      run: |
-        docker run --name my-webapp -d -p 8080:8080 webapp
-
+    
     # Cleanup (if containers were run)
     - name: Cleanup Docker containers
       if: always()
