@@ -5,7 +5,6 @@ import logging
 from os import getenv
 from flask import Flask, request, render_template, flash, redirect, url_for
 from pymongo import MongoClient
-from gridfs import GridFS
 from bson import binary
 from dotenv import load_dotenv
 import requests
@@ -21,7 +20,6 @@ mongo_uri = getenv("MONGO_URI")
 client = MongoClient(mongo_uri)
 db = client["imagedb"]
 collection = db["imageCollection"]
-fs = GridFS(db)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -33,6 +31,7 @@ def upload_image():
             try:
                 image_byte_array = io.BytesIO()
                 file.save(image_byte_array)
+                image_byte_array.seek(0)
                 image_bytes = image_byte_array.getvalue()
 
                 image_document = {
@@ -66,7 +65,8 @@ def list_text():
 def trigger_process():
     """Trigger the image processing service."""
     try:
-        response = requests.post("http://mlclient:5001/process", timeout=10)
+        url = "http://mlclient:5001/process"
+        response = requests.post(url)
         if response.status_code == 200:
             flash("Processing triggered successfully.", "success")
         else:
