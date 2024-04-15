@@ -22,19 +22,15 @@ collection = db["imageCollection"]
 @app.route("/process", methods=["POST"])
 def process():
     try:
-        # Fetch the first unprocessed image document
         image_document = collection.find_one({"is_processed": False})
         if not image_document:
             return jsonify({"error": "No unprocessed images available."}), 404
 
-        # Convert binary data to an image
         image_bytes = io.BytesIO(image_document['image_data'])
         image = Image.open(image_bytes)
 
-        # Extract text from the image using pytesseract
         text = pytesseract.image_to_string(image)
         if text:
-            # Update the MongoDB document with the extracted text and mark as processed
             collection.update_one(
                 {"_id": image_document['_id']},
                 {

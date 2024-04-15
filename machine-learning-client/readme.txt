@@ -4,7 +4,7 @@ pipenv lock
 docker build -t ml-client .
 docker run --name ml-client ml-client
 
-docker cp ml-client:/app/output_audio.wav /Users/tchen3/4-containerized-app-exercise-team-dttt4/machine-learning-client/audio
+docker cp ml-client:/app/output_audio.wav /Users/denizqian/Desktop/Software Engineering/4-containerized-app-exercise-team-dttt4/machine-learning-client/audio
 
 docker rm ml-client
 

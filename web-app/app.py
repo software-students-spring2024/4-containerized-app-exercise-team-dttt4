@@ -19,7 +19,7 @@ mongo_uri = getenv("MONGO_URI")
 client = MongoClient(mongo_uri)
 db = client["imagedb"]
 collection = db["imageCollection"]
-fs = GridFS(db)  # Assuming GridFS is used for some other purposes
+fs = GridFS(db) 
 
 @app.route("/", methods=["GET", "POST"])
 def upload_image():
@@ -55,7 +55,7 @@ def list_text():
 def trigger_process():
     try:
         # URL of the mlclient.py process route
-        mlclient_url = "http://localhost:5001/process"
+        mlclient_url = "http://mlclient:5001/process"
         response = requests.post(mlclient_url)
         if response.status_code == 200:
             flash("Processing triggered successfully.", "success")

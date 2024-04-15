@@ -3,4 +3,3 @@ pymongo
 python-dotenv
 Pillow
 requests
-p
