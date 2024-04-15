@@ -7,6 +7,7 @@
 
 Build a containerized app that uses machine learning. See [instructions](./instructions.md) for details.
 
+
 ## Team members
 
 Deniz Qian: https://github.com/dq2024 \
@@ -48,8 +49,5 @@ pip install Flask pytesseract Pillow ibm-watson python-dotenv pymongo
 ```
 
 ### Run the Application
-1. Navigate to web-app directory and run the flask application.
-```
-flask run
-```
-2. Choose the file to upload
+docker-compose up --build  
+docker-compose down    

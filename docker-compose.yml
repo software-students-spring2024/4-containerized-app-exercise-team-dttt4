@@ -6,13 +6,18 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - mlclient
+    env_file:
+      - ./web-app/.env  # Path to your .env file for the web service
 
   mlclient:
     build: ./machine-learning-client
     ports:
-      - "80:80"
+      - "5001:5001"
     depends_on:
       - db
+    env_file:
+      - ./machine-learning-client/.env  # Path to your .env file for the ML client
 
   db:
     image: mongo

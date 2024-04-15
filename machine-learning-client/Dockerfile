@@ -24,7 +24,7 @@ RUN pipenv install --deploy
 COPY . /app
 
 # Expose port 80 for the application
-EXPOSE 80
+EXPOSE 5001
 
 # Set environment variable
 ENV NAME World
