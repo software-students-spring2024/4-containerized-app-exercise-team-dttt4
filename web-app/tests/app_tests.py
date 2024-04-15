@@ -2,8 +2,6 @@
 This file contains tests for app.py
 """
 
-from app import app
-
 def test_process_image_get(client):
     """
     Tests if root url gives successful response 
@@ -12,7 +10,6 @@ def test_process_image_get(client):
     assert response.status_code == 200
     assert b'process_image.html' in response.data
 
-@pytest.fixture
 def client():
     """
     Sets up test up test client for flask 
