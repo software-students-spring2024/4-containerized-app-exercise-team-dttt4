@@ -1,3 +1,5 @@
+"""ML Module for processing images and extracting text."""
+
 import io
 import os
 from flask import Flask, jsonify, request
@@ -19,8 +21,10 @@ db = client["imagedb"]
 fs = GridFS(db)
 collection = db["imageCollection"]
 
+
 @app.route("/process", methods=["POST"])
 def process():
+    """Process the first unprocessed image found in the database, extract text, and update the document as processed."""
     try:
         image_document = collection.find_one({"is_processed": False})
         if not image_document:

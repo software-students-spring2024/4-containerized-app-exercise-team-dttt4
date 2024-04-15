@@ -43,7 +43,7 @@ def upload_image():
 
                 collection.insert_one(image_document)
                 flash(
-                    "Image successfully uploaded. Processing will begin shortly.", 
+                    "Image successfully uploaded. Processing will begin shortly.",
                     "success",
                 )
             except requests.exceptions.RequestException as e:
@@ -74,6 +74,7 @@ def trigger_process():
     except requests.exceptions.RequestException as e:
         flash(f"Error triggering processing: {e}", "error")
     return redirect(url_for("upload_image"))
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=8080)
