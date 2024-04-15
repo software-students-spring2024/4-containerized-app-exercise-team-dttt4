@@ -1,4 +1,4 @@
-name: Build and Run Containers
+name: Web App Build
 
 on:
   push:
@@ -13,24 +13,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    # Machine Learning Client
-    - name: Set up Python for ML Client
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-
-    - name: Install dependencies for ML Client
-      run: |
-        cd machine-learning-client
-        pip install --upgrade pip
-        pip install pipenv
-        pipenv lock
-
-    - name: Build ML Client Docker image
-      run: |
-        cd machine-learning-client
-        docker build -t ml-client .
 
     # Assuming you don't actually want to run the container as part of CI
     # since it produces an output file and does not serve HTTP content
