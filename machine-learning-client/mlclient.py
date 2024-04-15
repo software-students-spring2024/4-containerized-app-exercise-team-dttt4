@@ -44,7 +44,7 @@ def process():
                 }
             )
             return jsonify({"message": "Image processed and text saved."}), 200
-        
+
         return jsonify({"error": "No text could be extracted from the image."}), 400
     except IOError as e:
         return jsonify({"error": str(e)}), 500
