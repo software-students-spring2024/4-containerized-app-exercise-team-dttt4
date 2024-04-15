@@ -49,5 +49,8 @@ pip install Flask pytesseract Pillow ibm-watson python-dotenv pymongo
 ```
 
 ### Run the Application
-docker-compose up --build  
+docker-compose up --build
+It should be running at http://127.0.0.1:8080/
+
+### Shutdown the Application
 docker-compose down    
