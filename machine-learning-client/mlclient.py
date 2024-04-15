@@ -13,7 +13,6 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# MongoDB setup
 mongo_uri = os.getenv("MONGO_URI")
 client = MongoClient(mongo_uri)
 db = client["imagedb"]
@@ -29,25 +28,21 @@ def process():
         if not image_document:
             return jsonify({"error": "No unprocessed images available."}), 404
 
-        image_bytes = io.BytesIO(image_document['image_data'])
+        image_bytes = io.BytesIO(image_document["image_data"])
         image = Image.open(image_bytes)
 
         text = pytesseract.image_to_string(image)
         if text:
             collection.update_one(
-                {"_id": image_document['_id']},
-                {
-                    "$set": {
-                        "text": text,
-                        "is_processed": True
-                    }
-                }
+                {"_id": image_document["_id"]},
+                {"$set": {"text": text,"is_processed": True}}
             )
             return jsonify({"message": "Image processed and text saved."}), 200
 
         return jsonify({"error": "No text could be extracted from the image."}), 400
     except IOError as e:
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5001)
