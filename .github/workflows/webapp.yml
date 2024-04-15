@@ -1,4 +1,4 @@
-name: Build and Run Containers
+name: Web App Build
 
 on:
   push:
