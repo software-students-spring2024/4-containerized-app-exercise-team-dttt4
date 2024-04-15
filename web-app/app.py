@@ -33,6 +33,7 @@ def upload_image():
             try:
                 image_byte_array = io.BytesIO()
                 file.save(image_byte_array)
+                image_byte_array.seek(0)
                 image_bytes = image_byte_array.getvalue()
 
                 image_document = {
