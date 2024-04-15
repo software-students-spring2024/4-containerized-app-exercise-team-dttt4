@@ -2,12 +2,11 @@
 
 import io
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from PIL import Image
 import pytesseract
 from pymongo import MongoClient
 from gridfs import GridFS
-from bson.objectid import ObjectId
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -24,7 +23,7 @@ collection = db["imageCollection"]
 
 @app.route("/process", methods=["POST"])
 def process():
-    """Process the first unprocessed image found in the database, extract text, and update the document as processed."""
+    """Process the first image extract text, and update the document as processed."""
     try:
         image_document = collection.find_one({"is_processed": False})
         if not image_document:
@@ -45,9 +44,9 @@ def process():
                 }
             )
             return jsonify({"message": "Image processed and text saved."}), 200
-        else:
-            return jsonify({"error": "No text could be extracted from the image."}), 400
-    except Exception as e:
+        
+        return jsonify({"error": "No text could be extracted from the image."}), 400
+    except IOError as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
