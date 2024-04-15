@@ -52,7 +52,7 @@ pip install Flask pytesseract Pillow python-dotenv pymongo
 docker-compose up --build
 ```
 0. It should be running at http://127.0.0.1:8080/ 
-1. Click 'choose file' and select your image
+1. Click 'choose file' and select your image (JPG, JPEG)
 2. Click 'Upload'
 3. Click 'Trigger Processing' to transcribe
 4. Click 'View Text Transcriptions' to look at current and previous results
