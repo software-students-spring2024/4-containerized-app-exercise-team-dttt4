@@ -13,7 +13,7 @@ Pillow = "*"
 pydub = "*"
 pytesseract = "*"
 python-dotenv = "*"  # Added to ensure that environment variables can be loaded
-
+pytest = "*"
 [dev-packages]
 
 [requires]
