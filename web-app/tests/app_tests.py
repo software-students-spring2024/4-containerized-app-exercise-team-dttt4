@@ -1,13 +1,14 @@
 """Tests for app.py"""
-import pytest
 import io
 import os
 import unittest
-from pymongo import MongoClient
 from unittest.mock import Mock, patch
+from io import BytesIO
+import pytest
+from pymongo import MongoClient
 from flask import Flask, request, url_for
 from app import upload_image, list_text, trigger_process
-from io import BytesIO
+
 
 app = Flask(__name__)
 
@@ -65,4 +66,3 @@ def test_list_text(test_client):
         ]
         response = test_client.get('/list_text')
         assert response.status_code == 200
-  
