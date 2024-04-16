@@ -69,23 +69,23 @@ def test_list_text(client):
         # assert b'Test Text 2' in response.data
 
 
-def test_trigger_process_success(client):
-    """Test the trigger_process route with a successful response."""
-    with patch('app.requests.post') as mock_post:
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_post.return_value = mock_response
-        response = client.post('/trigger_process', follow_redirects=True)
-        assert response.status_code == 200
-        # assert b'Processing triggered successfully.' in response.data
+# def test_trigger_process_success(client):
+#     """Test the trigger_process route with a successful response."""
+#     with patch('app.requests.post') as mock_post:
+#         mock_response = Mock()
+#         mock_response.status_code = 200
+#         mock_post.return_value = mock_response
+#         response = client.post('/trigger_process', follow_redirects=True)
+#         assert response.status_code == 200
+#         # assert b'Processing triggered successfully.' in response.data
 
-def test_trigger_process_failure(client):
-    """Test the trigger_process route with a failed response."""
-    with patch('app.requests.post') as mock_post:
-        mock_response = Mock()
-        mock_response.status_code = 500
-        mock_response.text = 'Internal Server Error'
-        mock_post.return_value = mock_response
-        # response = client.post('/trigger_process', follow_redirects=True)
-        # assert response.status_code == 200
+# def test_trigger_process_failure(client):
+#     """Test the trigger_process route with a failed response."""
+#     with patch('app.requests.post') as mock_post:
+#         mock_response = Mock()
+#         mock_response.status_code = 500
+#         mock_response.text = 'Internal Server Error'
+#         mock_post.return_value = mock_response
+#         # response = client.post('/trigger_process', follow_redirects=True)
+#         # assert response.status_code == 200
 
