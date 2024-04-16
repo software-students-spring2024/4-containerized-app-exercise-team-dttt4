@@ -35,57 +35,34 @@ def test_assert():
     """Basic test"""
     assert True
 
-def test_root_dir(client):
+def test_root_dir(test_client):
     """T"""
-    response = client.get('/')
+    response = test_client.get('/')
     assert response.status_code == 200
 
 @pytest.fixture
-def client():
+def test_client():
     """Creates test client"""
     client = app.test_client()
     return client
 
 def test_upload_image_get(client):
     """Test that a 404 error is returned for an invalid image path."""
-    response = client.get('/image/non-existent-image.jpg')
+    response = test_client.get('/image/non-existent-image.jpg')
     assert response.status_code == 404
 
-def test_invalid_route(client):
+def test_invalid_route(test_client):
     """Tests there's a non-existent route."""
-    response = client.get('/non-existent-route')
+    response = test_client.get('/non-existent-route')
     assert response.status_code == 404
 
-def test_list_text(client):
+def test_list_text(test_client):
     """Test the list_text route."""
     with patch('app.collection.find') as mock_find:
         mock_find.return_value = [
             {'text': 'Test Text 1', 'image_name': 'image1.jpg'},
             {'text': 'Test Text 2', 'image_name': 'image2.jpg'}
         ]
-        response = client.get('/list_text')
+        response = test_client.get('/list_text')
         assert response.status_code == 200
-        # assert b'Test Text 1' in response.data
-        # assert b'Test Text 2' in response.data
-
-
-# def test_trigger_process_success(client):
-#     """Test the trigger_process route with a successful response."""
-#     with patch('app.requests.post') as mock_post:
-#         mock_response = Mock()
-#         mock_response.status_code = 200
-#         mock_post.return_value = mock_response
-#         response = client.post('/trigger_process', follow_redirects=True)
-#         assert response.status_code == 200
-#         # assert b'Processing triggered successfully.' in response.data
-
-# def test_trigger_process_failure(client):
-#     """Test the trigger_process route with a failed response."""
-#     with patch('app.requests.post') as mock_post:
-#         mock_response = Mock()
-#         mock_response.status_code = 500
-#         mock_response.text = 'Internal Server Error'
-#         mock_post.return_value = mock_response
-#         # response = client.post('/trigger_process', follow_redirects=True)
-#         # assert response.status_code == 200
-
+  
