@@ -1,14 +1,7 @@
 """Tests for app.py"""
-import io
-import os
-import unittest
-from unittest.mock import Mock, patch
-from io import BytesIO
 import pytest
-from pymongo import MongoClient
+from unittest.mock import Mock, patch
 from flask import Flask, request, url_for
-from app import upload_image, list_text, trigger_process
-
 
 app = Flask(__name__)
 
