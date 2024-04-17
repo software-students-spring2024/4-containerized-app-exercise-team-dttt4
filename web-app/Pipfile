@@ -20,7 +20,6 @@ pytest = "*"
 tomli = "*"
 typing-extensions = "*"
 asteroid = "*"
-dill = "*"
 
 [requires]
 python_version = "3.10"
