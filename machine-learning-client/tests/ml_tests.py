@@ -1,9 +1,9 @@
 """Tests for mlclient.py"""
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import pytest
-from flask import Flask
 from PIL import Image
-from mlclient import app, process, collection, db, fs
+from mlclient import app
+
 
 
 @pytest.fixture
@@ -31,7 +31,7 @@ def test_process_io_error(mock_collection, client):
 @patch('mlclient.pytesseract.image_to_string')
 def test_process_successful(mock_pytesseract, mock_image_open, mock_collection, client):
     """Verifies successful processing of"""
-    mock_collection.find_one.return_value = {'_id': '123', 'image_data': b'image_data', 'is_processed': False}
+    mock_collection.find_one.return_value = {'_id':'123', 'image_data': b'image_data', 'is_processed': False}
     mock_image_open.return_value = Image.new('RGB', (100, 100))
     mock_pytesseract.return_value = 'extracted text'
     response = client.post('/process')
