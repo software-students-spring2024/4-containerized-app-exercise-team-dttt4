@@ -35,7 +35,7 @@ def cfixture_app_client():
     return client
 
 def test_root_dir(create_app_client):
-    """T"""
+    """Test root directory"""
     response = create_app_client.get('/')
     assert response.status_code == 200
 
