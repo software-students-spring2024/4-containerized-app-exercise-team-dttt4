@@ -34,3 +34,8 @@ jobs:
         run: |
           cd ${{ matrix.subdir }}
           pipenv run black --diff --check .
+      - name: Lint with flake8
+        if: ${{ hashFiles(format('{0}/**/*.py', matrix.subdir)) != '' }}
+        run: |
+          cd ${{ matrix.subdir }}
+          pipenv run flake8 . --ignore=W0621,E0401 --max-line-length=120
