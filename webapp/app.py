@@ -24,7 +24,6 @@ collection = db["imageCollection"]
 fs = GridFS(db)
 
 
-
 @app.route("/", methods=["GET", "POST"])
 def upload_image():
     """Handle image upload requests from users."""
