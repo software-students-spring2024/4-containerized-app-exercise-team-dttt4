@@ -8,8 +8,8 @@ from mlclient import app
 @pytest.fixture
 def client():
     """Provide a Flask test client to be used by test functions."""
-    with app.test_client() as client:
-        yield client
+    with app.test_client() as cl:
+        yield cl
 
 
 @patch('mlclient.collection')
