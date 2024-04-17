@@ -28,16 +28,16 @@ def test_assert():
     """Basic test"""
     assert True
 
-def test_root_dir(create_app_client):
-    """T"""
-    response = create_app_client.get('/')
-    assert response.status_code == 200
-
 @pytest.fixture
 def create_app_client():
     """Creates test client"""
     client = app.test_client()
     return client
+
+def test_root_dir(create_app_client):
+    """T"""
+    response = create_app_client.get('/')
+    assert response.status_code == 200
 
 # def test_invalid_route(create_app_client):
 #     """Tests there's a non-existent route."""
