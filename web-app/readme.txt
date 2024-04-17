@@ -7,3 +7,6 @@ docker run --name my-webapp -p 8080:8080 --env-file ./web-app/.env webapp
 To stop container: 
 docker stop my-webapp
 docker rm my-webapp
+
+docker-compose up --build  
+docker-compose down         
