@@ -1,7 +1,7 @@
 """Tests for app.py"""
-import pytest
 from unittest.mock import Mock, patch
-from flask import Flask, request, url_for
+import pytest
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -29,33 +29,33 @@ def test_assert():
     """Basic test"""
     assert True
 
-def test_root_dir(test_client):
+def test_root_dir(create_test_client):
     """T"""
-    response = test_client.get('/')
+    response = create_test_client.get('/')
     assert response.status_code == 200
 
 @pytest.fixture
-def test_client():
+def create_test_client():
     """Creates test client"""
     client = app.test_client()
     return client
 
-def test_invalid_route(test_client):
+def test_invalid_route(create_test_client):
     """Tests there's a non-existent route."""
-    response = test_client.get('/non-existent-route')
+    response = create_test_client.get('/non-existent-route')
     assert response.status_code == 404
 
-def test_list_text(test_client):
+def test_list_text(create_test_client):
     """Test the list_text route."""
     with patch('app.collection.find') as mock_find:
         mock_find.return_value = [
             {'text': 'Test Text 1', 'image_name': 'image1.jpg'},
             {'text': 'Test Text 2', 'image_name': 'image2.jpg'}
         ]
-        response = test_client.get('/list_text')
+        response = create_test_client.get('/list_text')
         assert response.status_code == 200
 
-def test_trigger_process_failure(test_client):
+def test_trigger_process_failure():
     """Test the trigger_process route with a failed response."""
     with patch('app.requests.post') as mock_post:
         mock_response = Mock()
