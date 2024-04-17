@@ -28,8 +28,8 @@ def test_assert():
     """Basic test"""
     assert True
 
-@pytest.fixture
-def create_app_client():
+@pytest.fixture(name="create_app_client")
+def cfixture_app_client():
     """Creates test client"""
     client = app.test_client()
     return client
