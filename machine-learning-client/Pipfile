@@ -13,10 +13,15 @@ Pillow = "*"
 pydub = "*"
 pytesseract = "*"
 python-dotenv = "*"  # Added to ensure that environment variables can be loaded
+bson = "*"
+pytest = "*"
+dill = "*"
+dil = "*"
 
 [dev-packages]
+tomli = "*"
+typing-extensions = "*"
+asteroid = "*"
 
 [requires]
 python_version = "3.10"
-
-
