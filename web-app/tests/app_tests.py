@@ -1,5 +1,4 @@
 """Tests for app.py"""
-from unittest.mock import Mock, patch
 import pytest
 from flask import Flask
 
@@ -44,4 +43,3 @@ def test_invalid_route(create_app_client):
     """Tests there's a non-existent route."""
     response = create_app_client.get('/non-existent-route')
     assert response.status_code == 404
-
